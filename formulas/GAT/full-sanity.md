@@ -243,3 +243,4 @@
   )
 )
 ```
+This formula checks if the sheet is filled by following the format and the rules of the process.
