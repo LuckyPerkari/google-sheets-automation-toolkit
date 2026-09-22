@@ -1,7 +1,6 @@
 ## Complete Sheet Sanity for KSA
 
 ```excel
-
 =IF(
   COUNTA(A2:U2)=0,
   "",
