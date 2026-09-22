@@ -1,4 +1,4 @@
-Check distance formula
+## Check distance formula
 
 ```excel
 =AIRPORT_DISTANCE(N2,Q2,R2)
