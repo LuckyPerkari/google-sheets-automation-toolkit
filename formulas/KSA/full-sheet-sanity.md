@@ -1,6 +1,7 @@
 ## Complete Sheet Sanity for KSA
 
 ```excel
+
 =IF(
   COUNTA(A2:U2)=0,
   "",
@@ -28,25 +29,40 @@
           )
         ),
 
-      Region,UPPER(TRIM(P2)),
-      Airport,LOWER(TRIM(Q2)),
-      ServiceType,LOWER(TRIM(S2)),
-      CarType,LOWER(TRIM(T2)),
-      RequestID,UPPER(TRIM(D2)),
+      Region,
+        UPPER(TRIM(P2)),
+
+      Airport,
+        LOWER(TRIM(Q2)),
+
+      ServiceType,
+        LOWER(TRIM(S2)),
+
+      CarType,
+        LOWER(TRIM(T2)),
+
+      RequestID,
+        UPPER(TRIM(D2)),
 
       Status,
         LOWER(
           REGEXREPLACE(
-            TRIM(SUBSTITUTE(U2,CHAR(160)," ")),
+            TRIM(
+              SUBSTITUTE(U2,CHAR(160)," ")
+            ),
             "\s+",
             ""
           )
         ),
 
-      TravelType,LOWER(TRIM(N2)),
+      TravelType,
+        LOWER(TRIM(N2)),
 
-      IsRS,RIGHT(RequestID,3)="-RS",
-      IsCA,RIGHT(RequestID,3)="-CA",
+      IsRS,
+        RIGHT(RequestID,3)="-RS",
+
+      IsCA,
+        RIGHT(RequestID,3)="-CA",
 
       ExpectedAirport,
         SWITCH(
@@ -59,23 +75,45 @@
 
       AirportValid,
         IF(
-          AND(Region<>"",Airport<>""),
-          ISNUMBER(SEARCH(ExpectedAirport,Airport)),
+          AND(
+            Region<>"",
+            Airport<>""
+          ),
+          ISNUMBER(
+            SEARCH(
+              ExpectedAirport,
+              Airport
+            )
+          ),
           FALSE
         ),
 
       ExpectedCar,
         SWITCH(
           ServiceType,
-          "standard","byd electric",
-          "business","lexus",
+          "standard",
+            "byd electric",
+
+          "business",
+            "lexus",
+
           "comfort",
             IF(
-              OR(Region="RUH",Region="DMM"),
+              OR(
+                Region="RUH",
+                Region="DMM"
+              ),
               "chevrolet tahoe",
-              IF(Region="JED","toyota highlander","")
+              IF(
+                Region="JED",
+                "toyota highlander",
+                ""
+              )
             ),
-          "premium","",
+
+          "premium",
+            "",
+
           ""
         ),
 
@@ -84,8 +122,16 @@
           ServiceType="premium",
           TRUE,
           IF(
-            AND(ServiceType<>"",CarType<>""),
-            ISNUMBER(SEARCH(ExpectedCar,CarType)),
+            AND(
+              ServiceType<>"",
+              CarType<>""
+            ),
+            ISNUMBER(
+              SEARCH(
+                ExpectedCar,
+                CarType
+              )
+            ),
             FALSE
           )
         ),
@@ -101,7 +147,13 @@
       MinutesDiff,
         IF(
           FlightTimeValid,
-          ROUND(((JDate+L2)-(KDate+M2))*1440,0),
+          ROUND(
+            (
+              (JDate+L2)-
+              (KDate+M2)
+            )*1440,
+            0
+          ),
           0
         ),
 
@@ -109,11 +161,23 @@
         " | ",
         TRUE,
 
-        IF(Status="invalid","Invalid",""),
+        IF(
+          Status="invalid",
+          "Invalid",
+          ""
+        ),
 
-        IF(LEN(E2)<9,"Invalid Mobile",""),
+        IF(
+          LEN(E2)<9,
+          "Invalid Mobile",
+          ""
+        ),
 
-        IF(G2="","Missing Flight No",""),
+        IF(
+          G2="",
+          "Missing Flight No",
+          ""
+        ),
 
         IF(
           AND(
@@ -166,11 +230,11 @@
             FlightTimeValid
           ),
           IF(
-            MinutesDiff<90,
-            "Departure <1.5 hrs",
+            MinutesDiff<60,
+            "Departure <1 hr",
             IF(
-              MinutesDiff>480,
-              "Departure >8 hrs",
+              MinutesDiff>360,
+              "Departure >6 hrs",
               ""
             )
           ),
@@ -189,7 +253,9 @@
               (KDate+M2)<(JDate+L2),
               "Arrival before flight",
               IF(
-                (KDate+M2)>(JDate+L2+TIME(1,0,0)),
+                (KDate+M2)>(
+                  JDate+L2+TIME(1,0,0)
+                ),
                 "Arrival >1 hr after flight",
                 ""
               )
@@ -208,8 +274,8 @@
             OR(
               TravelType<>"departure",
               AND(
-                MinutesDiff>=90,
-                MinutesDiff<=480
+                MinutesDiff>=60,
+                MinutesDiff<=360
               )
             ),
 
@@ -218,11 +284,14 @@
               AND(
                 KDate=JDate,
                 (KDate+M2)>=(JDate+L2),
-                (KDate+M2)<=(JDate+L2+TIME(1,0,0))
+                (KDate+M2)<=(
+                  JDate+L2+TIME(1,0,0)
+                )
               )
             ),
 
             AirportValid,
+
             CarValid,
 
             OR(
@@ -235,7 +304,7 @@
             OR(
               NOT(IsCA),
               Status="cancelled"
-            ) 
+            )
           ),
           "OK",
           ""
