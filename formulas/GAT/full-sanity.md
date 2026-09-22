@@ -1,5 +1,7 @@
 # GAT Full Sanity Formula
 
+```excel
+
 =IF(
   COUNTA(A2:V2)=0,
   "",
@@ -240,3 +242,4 @@
     "Error - Check Date/Time"
   )
 )
+```
