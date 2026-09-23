@@ -243,3 +243,43 @@
 )
 ```
 This formula checks if the sheet is filled by following the format and the rules of the process.
+
+# GAT Full Sanity Formula
+
+This formula checks whether the GAT sheet is filled correctly according to the defined format and process rules.
+
+## GAT Sheet Format
+
+| Column | Header |
+|---|---|
+| A | S.No |
+| B | Employee Name |
+| C | Bank Name |
+| D | Service Type |
+| E | Req ID |
+| F | Contact |
+| G | Passenger Name |
+| H | Flight No |
+| I | Voucher ID |
+| J | Booking date |
+| K | Flight Date |
+| L | Pickup Date |
+| M | Flight Time |
+| N | Pick up Time |
+| O | Travel Type |
+| P | Terminal |
+| Q | Region |
+| R | Airport |
+| S | Pickup/Drop off Location |
+| T | Car Type |
+| U | Assigned car |
+| V | Status |
+| W | Amount Debited |
+| X | No of Pax |
+| Y | Remarks |
+| Z | Comments |
+| AA | Review by TL |
+| AB | Check distance |
+| AC | if distance >45 |
+
+
