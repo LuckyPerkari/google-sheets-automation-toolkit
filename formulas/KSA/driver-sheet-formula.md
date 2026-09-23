@@ -201,3 +201,10 @@
   )
 )
 ```
+
+## Driver Sheet check Distance formula
+=IFERROR(AIRPORT_DISTANCE(J2,M2,N2),"")
+
+## Driver Sheet Check >45
+=IFERROR(IF(T2="","",IF(VALUE(LEFT(T2,SEARCH(" KM",T2)-1))>45,"More than 45 KM","OK")),"Invalid Distance")
+
