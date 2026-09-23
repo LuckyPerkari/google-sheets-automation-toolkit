@@ -212,3 +212,32 @@
 =IFERROR(IF(T2="","",IF(VALUE(LEFT(T2,SEARCH(" KM",T2)-1))>45,"More than 45 KM","OK")),"Invalid Distance")
 ```
 
+## Driver Sheet Format
+
+The Driver Sheet uses the following column structure:
+
+| Column | Header |
+|---|---|
+| A | Sr no |
+| B | Req ID |
+| C | Contact |
+| D | Customer Name |
+| E | Flight No |
+| F | Flight Date |
+| G | Pickup Date |
+| H | Flight Time |
+| I | Pick up Time |
+| J | Travel Type |
+| K | Terminal |
+| L | Region |
+| M | Airport |
+| N | Pickup/Drop off Location |
+| O | Car Type |
+| P | Allocation |
+| Q | No of Pax |
+| R | Comments |
+| S | Review by TL |
+| T | Check distance |
+| U | if distance >45 |
+
+The Driver Sheet uses columns A:U for its primary data and validation fields.
