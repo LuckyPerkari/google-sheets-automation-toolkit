@@ -347,5 +347,8 @@ The regular KSA sheet uses the following column structure:
 | X | Remarks |
 | Y | comments |
 | Z | Review by TL |
+| Z | Review by TL |
+| AA | Check Distance |
+| AB | if distance >45 |
 
 The existing KSA sanity formula uses columns A:U as its input range.
