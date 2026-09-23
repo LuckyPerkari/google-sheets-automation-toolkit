@@ -315,3 +315,37 @@
 )
 ```
 
+## KSA Sheet Format
+
+The regular KSA sheet uses the following column structure:
+
+| Column | Header |
+|---|---|
+| A | S no |
+| B | Employee Name |
+| C | Service Type |
+| D | Request ID |
+| E | Contact |
+| F | Passenger Name |
+| G | Flight No |
+| H | Voucher ID |
+| I | Booking date |
+| J | Flight Date |
+| K | Pickup Date |
+| L | Flight Time |
+| M | Pick up Time |
+| N | Travel Type |
+| O | Terminal |
+| P | Region |
+| Q | Airport |
+| R | Pickup/Drop off Location |
+| S | Car Type |
+| T | Assigned car |
+| U | Status |
+| V | Blank |
+| W | No of Pax |
+| X | Remarks |
+| Y | comments |
+| Z | Review by TL |
+
+The existing KSA sanity formula uses columns A:U as its input range.
