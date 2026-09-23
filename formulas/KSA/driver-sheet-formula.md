@@ -2,40 +2,40 @@
 
 ```excel
 =IF(
-  COUNTA(A2:U2)=0,
+  COUNTA(A2:R2,T2:U2)=0,
   "",
   IFERROR(
     LET(
-      JDate,
+      FlightDate,
         IF(
-          ISNUMBER(J2),
-          J2,
+          ISNUMBER(F2),
+          F2,
           DATE(
-            VALUE(RIGHT(TRIM(J2),4)),
-            VALUE(MID(TRIM(J2),4,2)),
-            VALUE(LEFT(TRIM(J2),2))
+            VALUE(RIGHT(TRIM(F2),4)),
+            VALUE(MID(TRIM(F2),4,2)),
+            VALUE(LEFT(TRIM(F2),2))
           )
         ),
 
-      KDate,
+      PickupDate,
         IF(
-          ISNUMBER(K2),
-          K2,
+          ISNUMBER(G2),
+          G2,
           DATE(
-            VALUE(RIGHT(TRIM(K2),4)),
-            VALUE(MID(TRIM(K2),4,2)),
-            VALUE(LEFT(TRIM(K2),2))
+            VALUE(RIGHT(TRIM(G2),4)),
+            VALUE(MID(TRIM(G2),4,2)),
+            VALUE(LEFT(TRIM(G2),2))
           )
         ),
 
       Region,
-        UPPER(TRIM(P2)),
+        UPPER(TRIM(L2)),
 
       Airport,
-        LOWER(TRIM(Q2)),
+        LOWER(TRIM(M2)),
 
       TravelType,
-        LOWER(TRIM(N2)),
+        LOWER(TRIM(J2)),
 
       ExpectedAirport,
         SWITCH(
@@ -50,7 +50,8 @@
         IF(
           AND(
             Region<>"",
-            Airport<>""
+            Airport<>"",
+            ExpectedAirport<>""
           ),
           ISNUMBER(
             SEARCH(
@@ -63,10 +64,10 @@
 
       FlightTimeValid,
         AND(
-          L2<>"",
-          M2<>"",
-          L2<>"-",
-          M2<>"-"
+          H2<>"",
+          I2<>"",
+          H2<>"-",
+          I2<>"-"
         ),
 
       MinutesDiff,
@@ -74,8 +75,8 @@
           FlightTimeValid,
           ROUND(
             (
-              (JDate+L2)-
-              (KDate+M2)
+              (FlightDate+H2)-
+              (PickupDate+I2)
             )*1440,
             0
           ),
@@ -87,21 +88,21 @@
         TRUE,
 
         IF(
-          LEN(E2)<9,
+          LEN(C2)<9,
           "Invalid Mobile",
           ""
         ),
 
         IF(
-          G2="",
+          E2="",
           "Missing Flight No",
           ""
         ),
 
         IF(
           AND(
-            P2<>"",
-            Q2<>"",
+            L2<>"",
+            M2<>"",
             NOT(AirportValid)
           ),
           "Airport mismatch",
@@ -111,6 +112,17 @@
         IF(
           NOT(FlightTimeValid),
           "Missing Flight/Pickup Time",
+          ""
+        ),
+
+        IF(
+          NOT(
+            OR(
+              TravelType="departure",
+              TravelType="arrival"
+            )
+          ),
+          "Invalid Travel Type",
           ""
         ),
 
@@ -137,14 +149,14 @@
             FlightTimeValid
           ),
           IF(
-            KDate<>JDate,
+            PickupDate<>FlightDate,
             "Arrival date mismatch",
             IF(
-              (KDate+M2)<(JDate+L2),
+              (PickupDate+I2)<(FlightDate+H2),
               "Arrival before flight",
               IF(
-                (KDate+M2)>(
-                  JDate+L2+TIME(1,0,0)
+                (PickupDate+I2)>(
+                  FlightDate+H2+TIME(1,0,0)
                 ),
                 "Arrival >1 hr after flight",
                 ""
@@ -156,8 +168,8 @@
 
         IF(
           AND(
-            LEN(E2)>=9,
-            G2<>"",
+            LEN(C2)>=9,
+            E2<>"",
             FlightTimeValid,
             AirportValid,
 
@@ -172,10 +184,10 @@
             OR(
               TravelType<>"arrival",
               AND(
-                KDate=JDate,
-                (KDate+M2)>=(JDate+L2),
-                (KDate+M2)<=(
-                  JDate+L2+TIME(1,0,0)
+                PickupDate=FlightDate,
+                (PickupDate+I2)>=(FlightDate+H2),
+                (PickupDate+I2)<=(
+                  FlightDate+H2+TIME(1,0,0)
                 )
               )
             )
